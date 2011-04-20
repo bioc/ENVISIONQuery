@@ -4,6 +4,13 @@
 }
 
 .onAttach = function(libname, pkgname) {
+
+getJavaVersion<-function(){
+ 	version=.jcall("java.lang.System","S","getProperty","java.version");
+	return(version);
+}
+
+
 jpackage<-function (name, jars = "*", java.dir="java",morePaths = "", nativeLibrary = FALSE, 
     lib.loc = NULL) 
 {
@@ -46,7 +53,18 @@ jpackage<-function (name, jars = "*", java.dir="java",morePaths = "", nativeLibr
 }
 
 	jpackage(pkgname,java.dir="jar");
-#	assignInNamespace("ENVISIONServices",registerServices(),pkgname);
+
+	javaVersion<-getJavaVersion();
+
+	if(javaVersion<"1.6"){
+		msg<-paste("Your R is configured to use Java version ",javaVersion,".\n",
+			"The ",pkgname, " package requires R to be configured with Java 1.6 or higher.\n",
+			"Please install the correct Java version and/or reconfigure R and try again.\n",
+			 sep="");
+		#warning(msg,immediate. = TRUE);
+		stop(msg);
+	}
+		
 
 	desc <- packageDescription(pkgname)
 	DQdate <-  desc$Date
