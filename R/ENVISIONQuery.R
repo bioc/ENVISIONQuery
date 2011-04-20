@@ -373,17 +373,25 @@ mergeFrameList<-function(resList,verbose=FALSE){
 		return(NULL);
 
 	rows<-0;
-	for(i in 1:length(resList))
-		rows<-rows+nrow(resList[[i]]);
+	columns<-NULL;
+	for(i in 1:length(resList)){
+		if(!is.null(resList[[i]])){
+			rows<-rows+nrow(resList[[i]]);
+			if(is.null(columns))
+				columns<-colnames(resList[[i]]);
+		}
+	}
 	res<-array("",dim=c(rows,ncol(resList[[1]])));
-	colnames(res)<-colnames(resList[[1]]);
+	colnames(res)<-columns;
 	res<-as.data.frame(res,stringsAsFactors=FALSE);
 
 	row<-0;
 	for(i in 1:length(resList)){
-		rows<-nrow(resList[[i]]);
-		res[(row+1):(row+rows),]<-resList[[i]];
-		row<-row+rows;
+		if(!is.null(resList[[i]])){
+			rows<-nrow(resList[[i]]);
+			res[(row+1):(row+rows),]<-resList[[i]];
+			row<-row+rows;
+		}
 	}
 	return(res);
 }
