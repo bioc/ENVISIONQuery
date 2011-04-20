@@ -1,18 +1,17 @@
-%% LyX 1.6.6.1 created this file.  For more info, see http://www.lyx.org/.
+%% LyX 1.6.9 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
 \documentclass[english]{article}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
-\usepackage[letterpaper]{geometry}
+\usepackage{geometry}
 \geometry{verbose,tmargin=2cm,bmargin=3cm,lmargin=3cm,rmargin=3cm,headheight=1cm,headsep=1cm,footskip=2cm}
 \usepackage{color}
 \usepackage{babel}
 
 \usepackage{amstext}
-\usepackage[unicode=true, pdfusetitle,
- bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
- breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+\usepackage[unicode=true]
  {hyperref}
+\usepackage{breakurl}
 
 \makeatletter
 
@@ -20,9 +19,15 @@
 %% Because html converters don't know tabularnewline
 \providecommand{\tabularnewline}{\\}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
-\usepackage{Sweave}
+\usepackage{noweb}
+\newcommand{\lyxaddress}[1]{
+\par {\raggedright #1
+\vspace{1.4em}
+\noindent\par}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 \newcommand{\Rcode}[1]{{\texttt{#1}}}
 \newcommand{\Robject}[1]{{\texttt{#1}}}
 \newcommand{\Rcommand}[1]{{\texttt{#1}}}
@@ -31,13 +36,7 @@
 \newcommand{\Rpackage}[1]{{\textit{#1}}}
 \newcommand{\Rmethod}[1]{{\textit{#1}}}
 \newcommand{\Rclass}[1]{{\textit{#1}}}
-\newcommand{\lyxaddress}[1]{
-\par {\raggedright #1
-\vspace{1.4em}
-\noindent\par}
-}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 % Meta information - fill between {} and do not remove %
 % \VignetteIndexEntry{An R Package for retrieving data from EnVision into R objects. }
 % \VignetteDepends{rJava, XML, utils}
@@ -55,7 +54,7 @@ the Enfin-Encore annotation portal.}
 \author{Alex Lisovich$^{\text{1}}$, Roger Day$^{\text{1,2}}$}
 
 
-\date{February 15, 2011}
+\date{April 19, 2011}
 
 \maketitle
 
@@ -72,8 +71,8 @@ various database resources with a special focus on systems biology
 ( \href{http://code.google.com/p/enfin-co}{http://code.google.com/p/enfin-co}re/).
 EnCore is appealing to developers of bioinformatics applications,
 because of the scope and variety of EnCore's annotation resources,
-and because its collection of web services utilizes a common standard
-format (EnXML: \href{http://code.google.com/p/enfin-core/wiki/wp1_encore_enxml}{http://code.google.com/p/enfin-core/wiki/wp1\_{}encore\_{}enxml}).
+and because its collection of web services$^{*}$ utilizes a common
+standard format (EnXML: \href{http://code.google.com/p/enfin-core/wiki/wp1_encore_enxml}{http://code.google.com/p/enfin-core/wiki/wp1\_{}encore\_{}enxml}).
 Web services can communicate client applications using a variety of
 programming languages. Many bioinformaticians work in R, so an R-based
 solution is desirable. 
@@ -81,7 +80,12 @@ solution is desirable.
 The ENVISIONQuery package provides programmatic access to the EnCore
 web services in R. EnCore's capabilities evolve rapidly, so the architecture
 of ENVISIONQuery enables rapid integration of the new services when
-they appear.
+they appear.\\
+\\
+$^{*}$\textbf{IMPORTANT NOTE: The Java Web Services utilized
+by the package require Java 1.6 or higher to be installed, otherwise
+the package installation will fail giving the warning abot the wrong
+Java version.}
 
 
 \section{Design considerations}
@@ -232,7 +236,7 @@ Picr & mapProteinsAdv & Map protein identifiers between  & EMBL-EBI\tabularnewli
 Reactome  & FindPathAdv & Finds pathways for specified proteins & Reactome \tabularnewline
  &  &  & \href{http://www.reactome.org}{www.reactome.org}\tabularnewline
 \hline
-\end{tabular}
+\end{tabular}%
 \end{table}
 
 
@@ -268,7 +272,7 @@ Picr & \href{http://code.google.com/p/enfin-core/wiki/wp1_encore_webservices_pic
 \hline 
 Reactome  & \href{http://code.google.com/p/enfin-core/wiki/wp1_encore_webservices_reactome}{http://code.google.com/p/enfin-core/wiki/wp1\_{}encore\_{}webservices\_{}reactome}\tabularnewline
 \hline
-\end{tabular}
+\end{tabular}%
 \end{table}
 $^{\text{1}}$At the moment, only formal service description is available.
 For informal description, please refer to \href{http://www.ebi.ac.uk/intact}{www.ebi.ac.uk/intact}.

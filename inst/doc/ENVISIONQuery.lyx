@@ -1,9 +1,18 @@
-#LyX 1.6.6.1 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.9 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
 \textclass literate-article
 \begin_preamble
+\newcommand{\Rcode}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rcommand}[1]{{\texttt{#1}}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Rfunarg}[1]{{\textit{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+\newcommand{\Rmethod}[1]{{\textit{#1}}}
+\newcommand{\Rclass}[1]{{\textit{#1}}}
+
 % Meta information - fill between {} and do not remove %
 % \VignetteIndexEntry{An R Package for retrieving data from EnVision into R objects. }
 % \VignetteDepends{rJava, XML, utils}
@@ -74,7 +83,7 @@ Alex Lisovich
 \end_layout
 
 \begin_layout Date
-February 15, 2011
+April 19, 2011
 \end_layout
 
 \begin_layout Address
@@ -109,8 +118,11 @@ target "http://code.google.com/p/enfin-co"
 re/).
  EnCore is appealing to developers of bioinformatics applications, because
  of the scope and variety of EnCore's annotation resources, and because
- its collection of web services utilizes a common standard format (EnXML:
- 
+ its collection of web services
+\begin_inset Formula $^{*}$
+\end_inset
+
+ utilizes a common standard format (EnXML: 
 \begin_inset CommandInset href
 LatexCommand href
 target "http://code.google.com/p/enfin-core/wiki/wp1_encore_enxml"
@@ -129,6 +141,22 @@ The ENVISIONQuery package provides programmatic access to the EnCore web
  services in R.
  EnCore's capabilities evolve rapidly, so the architecture of ENVISIONQuery
  enables rapid integration of the new services when they appear.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $^{*}$
+\end_inset
+
+
+\series bold
+IMPORTANT NOTE: The Java Web Services utilized by the package require Java
+ 1.6 or higher to be installed, otherwise the package installation will fail
+ giving the warning abot the wrong Java version.
 \end_layout
 
 \begin_layout Section
