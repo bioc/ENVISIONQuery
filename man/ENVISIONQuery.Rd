@@ -93,8 +93,10 @@ IntactReactomeXML<-ENVISIONQuery(ids="P38398",
 serviceName=c("Intact","Reactome"),typeName="Uniprot ID",verbose=TRUE);
 #convert xml text into XMLDocument
 #using XML package for further exploring
+if(!is.null(IntactReactomeXML)){
 xmlDoc<-xmlTreeParse(IntactReactomeXML,useInternalNodes = TRUE, asText=TRUE);
 class(xmlDoc);
+}
 
 #### interactive ENVISIONQuery requests
 \dontrun{

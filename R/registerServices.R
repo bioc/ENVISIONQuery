@@ -7,12 +7,15 @@
 #' @author  Alex Lisovich, Roger Day
  
 registerServices<-function(){
+
 	utility<-tryCatch(new(J("UtilityEnvisionClient")),error=function(err) NULL);
 	intact<-tryCatch(new(J("IntactEnvisionClient")),error=function(err) NULL);
 	picr<-tryCatch(new(J("PicrEnvisionClient")),error=function(err) NULL);
 	probe2uniprot<-tryCatch(new(J("Probe2UniprotEnvisionClient")),error=function(err) NULL);
 	affy2uniprot<-tryCatch(new(J("Affy2UniprotEnvisionClient")),error=function(err) NULL);
 	reactome<-tryCatch(new(J("ReactomeEnvisionClient")),error=function(err) NULL);
+
+	
 	
 	serviceRegistry<-list();
 	if(!is.null(utility)){
@@ -28,17 +31,18 @@ registerServices<-function(){
 		)
 	}
 	if(!is.null(affy2uniprot)){
+		affy2uniprot$enableLogger(FALSE);
 		serviceRegistry[["ID Conversion"]]=list(
 			service=affy2uniprot,
 			tools=list(
 				Affy2Uniprot=list(
-					client=affy2uniprot$affy2Uniprot,
+					client=affy2uniprot$mapAffy2UniProt,
 					input=c("Affymetrix ID","Enfin XML","Enfine XML file"),
 					formatter=formatIdMap,
 					merger=mergeFrameList
 				),			
 				Uniprot2Affy=list(
-					client=affy2uniprot$uniprot2Affy,
+					client=affy2uniprot$mapUniProt2Affy,
 					input=c("Uniprot ID","Enfin XML","Enfine XML file"),
 					formatter=formatIdMap,
 					merger=mergeFrameList
@@ -47,6 +51,7 @@ registerServices<-function(){
 		)
 	}
 	if(!is.null(intact)){
+		intact$enableLogger(FALSE);
 		serviceRegistry[["Intact"]]=list(
 			service=intact,
 			tools=list(
@@ -60,6 +65,7 @@ registerServices<-function(){
 		)
 	}
 	if(!is.null(picr)){
+		picr$enableLogger(FALSE);
 		serviceRegistry[["Picr"]]=list(
 			service=picr,
 			tools=list(
@@ -79,6 +85,7 @@ registerServices<-function(){
 		)
 	}
 	if(!is.null(reactome)){
+		reactome$enableLogger(FALSE);
 		serviceRegistry[["Reactome"]]=list(
 			service=reactome,
 			tools=list(

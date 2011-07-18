@@ -1402,11 +1402,19 @@ serviceName=c("Intact","Reactome"),typeName="Uniprot ID",verbose=TRUE);
 \begin_inset Newline newline
 \end_inset
 
+if(!is.null(IntactReactomeXML)){
+\begin_inset Newline newline
+\end_inset
+
 xmlDoc<-xmlTreeParse(IntactReactomeXML,useInternalNodes = TRUE, asText=TRUE);
 \begin_inset Newline newline
 \end_inset
 
 class(xmlDoc);
+\begin_inset Newline newline
+\end_inset
+
+}
 \begin_inset Newline newline
 \end_inset
 

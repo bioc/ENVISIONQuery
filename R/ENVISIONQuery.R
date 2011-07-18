@@ -490,6 +490,12 @@ ENVISIONQuery.chunk<-function(ids,utilityTool,service,tool,
 	if (writeHTML)
 		writeChar(outXML,paste(attr(service,"serviceName"),"_",attr(tool,"toolName"),"_output",nchunk,".xml",sep=""));
 
+	if(length(grep("Error",outXML,fixed=TRUE))){
+		msg=paste("\n Web Service ***",attr(service,"serviceName"),"*** temporarily unavailable\n",
+			"If the problem persists, contact EnCORE team (encore-help@ebi.ac.uk) for technical support");
+		stop(msg);
+	}
+
 	if (formatIt){
 		formatter<-getFormatter(tool);
 		if (!is.null(formatter)){
@@ -591,8 +597,10 @@ ENVISIONQuery.chunk<-function(ids,utilityTool,service,tool,
 #' 	serviceName=c("Intact","Reactome"),typeName="Uniprot ID",verbose=TRUE);
 #' #convert xml text into XMLDocument
 #' #using XML package for further exploring
+#' if(!is.null(IntactReactomeXML)){
 #' xmlDoc<-xmlTreeParse(IntactReactomeXML,useInternalNodes = TRUE, asText=TRUE);
 #' class(xmlDoc);
+#' }
 #' 
 #' #### interactive ENVISIONQuery requests
 #' \dontrun{
@@ -608,17 +616,18 @@ ENVISIONQuery<-function(ids=c("1553619_a_at","1553497_at"),typeName="menu",servi
 	details=TRUE, writeHTML=FALSE, testMe=FALSE, graphicMenu=getOption("menu.graphics"), 
 	formatIt=TRUE, options=list(),filter=list(), compact=TRUE, verbose=FALSE){
 
-	if (testMe){
-		typeName<-"Affymetrix ID";
-		serviceName="ID Conversion";
-		toolName<-"Affy2Uniprot";
-		verbose=TRUE;
-	}
+   if (testMe){
+	typeName<-"Affymetrix ID";
+	serviceName="ID Conversion";
+	toolName<-"Affy2Uniprot";
+	verbose=TRUE;
+   }
 
-	serviceNames<-serviceName;
-	if(length(serviceNames)>1)
+   serviceNames<-serviceName;
+   if(length(serviceNames)>1)
 		formatIt<-FALSE;
-	
+
+  res<-tryCatch({ # catch any possible error
 	for(i in 1:length(serviceNames)){
 		serviceName<-serviceNames[i];
 		if(i>1){
@@ -675,8 +684,12 @@ ENVISIONQuery<-function(ids=c("1553619_a_at","1553497_at"),typeName="menu",servi
 		}
 	}#for(serviceName in serviceNames)
 
-	if(is.null(res))
-		warning("No results found");
-	return(res);
-
+	invisible(res);
+    }, error=function(e){
+      	cat("\n",as.character(e),"\n");
+		res<-NULL;
+   });
+   if(is.null(res))
+		cat("ENVISIONQuery: No results found\n");
+   return(res);
 }
