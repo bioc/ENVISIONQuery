@@ -155,7 +155,10 @@ getToolNames<-function(service){
 #'
 #' service<-getService("Picr");
 #' getToolNames(service);
-#' tool<-getTool(service,"mapProteinsAdv");
+#' tool<-try({getTool(service,"FindPathAdv");
+#' 		client<-getServiceClient(tool);
+#' 		print(client);
+#' })
 #'
 #' @export getTool
 #' @author  Alex Lisovich, Roger Day
@@ -200,10 +203,10 @@ getTool<-function(service,toolName="menu",selection.title="Select Tool", graphic
 #'
 #' service<-getService("Reactome");
 #' getToolNames(service);
-#' tool<-getTool(service,"FindPathAdv");
-#' client<-getServiceClient(tool);
-#' print(client);
-#'
+#' try({tool<-getTool(service,"FindPathAdv");
+#' 		client<-getServiceClient(tool);
+#' 		print(client);
+#' })
 #' @export getServiceClient
 #' @author  Alex Lisovich, Roger Day
 
@@ -231,8 +234,10 @@ getServiceClient<-function(tool){
 #' #check available input type for a given tool
 #'
 #' service<-getService("Reactome");
+#' try({tool<-getTool(service,"FindPathAdv");
+#' 	print(getInputTypes(tool));
+#' })
 #' tool<-getTool(service,"FindPathAdv");
-#' getInputTypes(tool);
 #'
 #' @export getInputTypes
 #' @author  Alex Lisovich, Roger Day
