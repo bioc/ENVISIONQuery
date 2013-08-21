@@ -155,7 +155,10 @@ getToolNames<-function(service){
 #'
 #' service<-getService("Picr");
 #' getToolNames(service);
-#' tool<-getTool(service,"mapProteinsAdv");
+#' tool<-try({getTool(service,"FindPathAdv");
+#' 		client<-getServiceClient(tool);
+#' 		print(client);
+#' })
 #'
 #' @export getTool
 #' @author  Alex Lisovich, Roger Day
@@ -200,10 +203,10 @@ getTool<-function(service,toolName="menu",selection.title="Select Tool", graphic
 #'
 #' service<-getService("Reactome");
 #' getToolNames(service);
-#' tool<-getTool(service,"FindPathAdv");
-#' client<-getServiceClient(tool);
-#' print(client);
-#'
+#' try({tool<-getTool(service,"FindPathAdv");
+#' 		client<-getServiceClient(tool);
+#' 		print(client);
+#' })
 #' @export getServiceClient
 #' @author  Alex Lisovich, Roger Day
 
@@ -231,8 +234,9 @@ getServiceClient<-function(tool){
 #' #check available input type for a given tool
 #'
 #' service<-getService("Reactome");
-#' tool<-getTool(service,"FindPathAdv");
-#' getInputTypes(tool);
+#' try({tool<-getTool(service,"FindPathAdv");
+#' 	print(getInputTypes(tool));
+#' })
 #'
 #' @export getInputTypes
 #' @author  Alex Lisovich, Roger Day
@@ -564,15 +568,17 @@ ENVISIONQuery.chunk<-function(ids,utilityTool,service,tool,
 #' print(res[1:5,]);
 #' 
 #' #convert EnSembl IDs to Uniprot IDs
-#' res<-ENVISIONQuery(ids=c("ENSP00000397145","ENSP00000269554"),serviceName="Picr",typeName="Protein ID");
+#' try({res<-ENVISIONQuery(ids=c("ENSP00000397145","ENSP00000269554"),serviceName="Picr",typeName="Protein ID");
 #' print(res);
-#' 
+#' }) 
+#'
 #' #### ENVISIONQuery request using options and filters
 #' 
 #' #match Uniprot IDs to EnSembl and TrEMBL
 #' options<-list("enfin-picr-search-database"=c("ENSEMBL_HUMAN","TREMBL"));
-#' res<-ENVISIONQuery(ids="P38398",serviceName="Picr",options=options,typeName="Protein ID");
+#' res<-try({ENVISIONQuery(ids="P38398",serviceName="Picr",options=options,typeName="Protein ID");
 #' print(res);
+#' })
 #' 
 #' #retrieve the pathways for given Uniprot ID(s)sorting them by coverage
 #' #and calcultating the total protein count
