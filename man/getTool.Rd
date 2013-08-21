@@ -12,6 +12,8 @@ and the number of tools is greater than 1 menu is contructed allowing to choose 
 \item{graphicMenu}{If TRUE (default is FALSE), use a GUI window for the pick menus.}}
 \examples{#get the tool handler for 'mapProteinsAdv' tool in 'Picr' service
 
-service<-getService("Picr");
-getToolNames(service);
-tool<-getTool(service,"mapProteinsAdv");}
+try({ service<-getService("Picr");
+  getToolNames(service);
+  tool<-getTool(service,"mapProteinsAdv");
+})
+}
