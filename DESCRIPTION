@@ -1,7 +1,7 @@
 Package: ENVISIONQuery
 Type: Package
 Title: Retrieval from the ENVISION bioinformatics data portal into R
-Version: 1.41.1
+Version: 1.42.0
 Date: 2020-09-01
 Author: Alex Lisovich, Roger Day
 Maintainer: Alex Lisovich <all67@pitt.edu>, Roger Day <day01@pitt.edu>
